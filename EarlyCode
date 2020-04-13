@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Apr 10 10:35:00 2020
+
+@author: TheHumbleCoder
+"""
+
+"""
+The aim of the below will be to create an interactive, shell based game of hangman.
+
+v1: text based
+v2: function/output for a visual hangman
+
+"""
+
+from random_word import RandomWords
+r = RandomWords()
+#Function call from the lib and assigning value to my variable
+guessWord = r.get_random_word(maxLength=10, hasDictionaryDef="true")
+#assign to our variable: guessWord - which now needs to be split in to character list
+def split(word):
+    return[char for char in word]
+#function above to split words in to character lists
+guessWord = split(guessWord)
+#function action and store in to original variable :) woop
+
+#setting the length of the generated word, for the loop iterations below
+lengthOfGuessWord = len(guessWord) + 3
+print(lengthOfGuessWord)
+
+
+#defining variables
+guessCount = 0
+userGuess = ''
+printedGuessWord = ''
+
+#for loop to go through the above generated word, and then append to a string below
+for x in guessWord:
+    printedGuessWord += '_'
+    
+print(guessWord)# for TESTING
+    
+#split function defined above now used on the guess word placeholder
+printedGuessWord = split(printedGuessWord)
+
+#setting blank variable counts of list type (well, empty sets)
+correct_guesses = set()
+incorrect_guesses = set()
+
+print('Hey! Happy Easter Weekend', '\n')
+print('Fancy a quick game of "guess the word?"', '\n')
+print("Start off by choosing your first letter, you'll get an equivalent number of guesses, to the length of the guess word + 3 extra tries", '\n')
+
+print('Go on, guess: ')
+
+while guessCount < lengthOfGuessWord and split(printedGuessWord) != guessWord:
+#python default input will always take a character
+    userGuess = input()
+        
+    if userGuess not in guessWord and guessCount < lengthOfGuessWord :
+        guessCount += 1
+        incorrect_guesses.add(userGuess)
+        print('Sorry! Not one of our letters, try again: ' )
+        print(printedGuessWord)
+        continue
+
+    if userGuess in guessWord and guessCount < lengthOfGuessWord :
+        guessCount += 1 
+        correct_guesses.add(userGuess)
+        printedGuessWord = ''.join(i if i in correct_guesses else '_' for i in guessWord)      
+        print('Nice work! You got one of the correct letters, see below for current word constructions state: ', '\n')
+        print("".join(printedGuessWord))
+        continue
+
+        
+if split(printedGuessWord) == guessWord:
+    print("Wow, you did it?! I'm surprised", "\n")
+    print("Not that you guessed the word, more that this worked!", "\n")
+    print("""
+    __________
+    |/       |
+    |        | 
+    |      
+    |        O "Woooo! I survived"
+    |       \|/
+    |        |
+   _|___    / \\
+        
+   
+            """)
+print("As Dave once said - Game Over ", "\n")
