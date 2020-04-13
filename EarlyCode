@@ -9,9 +9,6 @@ Created on Fri Apr 10 10:35:00 2020
 """
 The aim of the below will be to create an interactive, shell based game of hangman.
 
-v1: text based
-v2: function/output for a visual hangman
-
 """
 
 from random_word import RandomWords
